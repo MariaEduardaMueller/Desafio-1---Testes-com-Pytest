@@ -55,8 +55,8 @@ def test_listar_usuarios(client):
     response = client.listar_usuarios()
     assert response.status_code == 200
     body = response.json()
-    print("Quantidade:", body.get("quantidade"))
-    print("Total na lista:", len(body.get("usuarios", [])))
+    print("Qtd.:", body.get("quantidade"))
+    print("Qtd. Total:", len(body.get("usuarios", [])))
     assert "usuarios" in response.json()
 
 
