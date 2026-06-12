@@ -5,7 +5,7 @@ Utilizei o Pycharm para a realização do desafio e tentei imitar o escopo do pr
 Nisso criei pytest.fixture no ` conftest.py ` , o ` pytest.ini ` (também testei passando os parâmetros `-s -v` no próprio Pycharm sem ser por código), criei classes no `usuarios_client.py` para facilitar na criação de testes e também para eu melhorar meus conhecimentos.
 
 
-Testes realizados:
+## Testes realizados
 ## Testes de Cadastro
 ### Teste 1 - Validar cadastro de usuário
 ```
@@ -58,10 +58,9 @@ def test_listar_usuarios(client):
 
 ```
 Exemplo de retorno esperado:
-```
-Qtd.: 10
-Qtd. Total: 10
-```
+
+<img width="817" height="139" alt="image" src="https://github.com/user-attachments/assets/e8b61dce-785b-42de-8787-53c8444dd445" />
+
 
 ## Busca por ID
 ### Teste 6 - Busca de usuário específico
