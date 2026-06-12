@@ -13,6 +13,12 @@ Instale as bibliotecas necessárias pelas configurações da IDE ou pelo termina
 ```
 pip install pytest requests
 ```
+<br> </br>
+Caso não tenha o Python instalado utilize o terminal para rodar o comando:
+```
+winget install Python.Python
+```
+Ou baixe o Python pelo site: https://www.python.org/downloads/
 
 <br> </br>
 
