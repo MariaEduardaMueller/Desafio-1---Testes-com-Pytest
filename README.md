@@ -4,6 +4,11 @@ Mini desafio da Semana 3 do Bootcamp AWS AI FDE Driven Quality Engineering da Co
 Utilizei o Pycharm para a realização do desafio e tentei imitar o escopo do projeto passado em aula, copiando o nome dos diretórios e pastas.
 Nisso criei pytest.fixture no ` conftest.py ` , o ` pytest.ini ` (também testei passando os parâmetros `-s -v` no próprio Pycharm sem ser por código), criei classes no `usuarios_client.py` para facilitar na criação de testes e também para eu melhorar meus conhecimentos.
 
+Então a estrutura final do projeto ficou assim:
+
+<img width="185" height="149" alt="image" src="https://github.com/user-attachments/assets/9f7d3ae1-2d71-4549-b129-5cca9ad3f1c3" />
+
+
 ## Como executar
 Baixe o repositório e, depois de extrair os arquivos do .zip, o adicione no editor de código desejado:
 <img width="584" height="230" alt="image" src="https://github.com/user-attachments/assets/d8530021-e154-4c0e-a65b-90f4b2a8ed28" />
