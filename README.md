@@ -1,8 +1,8 @@
 # Desafio 1 - Testes com Pytest
-Mini desafio da Semana 3 do Bootcamp AWS AI FDE Driven Quality Engineering da Compass UOL. Projeto de automação de testes de API com Python, Pytest e Requests para validação dos endpoints de Usuários da ServeRest. 
+Mini desafio da Semana 3 do Bootcamp AWS AI FDE Driven Quality Engineering da Compass UOL. Projeto de automação de testes de API com Python, Pytest e Requests para validação dos endpoints de Usuários da ServeRest (Base URL: https://compassuol.serverest.dev/usuarios)
 
 Utilizei o Pycharm para a realização do desafio e tentei imitar o escopo do projeto passado em aula, copiando o nome dos diretórios e pastas.
-Nisso criei pytest.fixture no ` conftest.py ` , o ` pytest.ini ` (também testei passando os parâmetros `-s -v ` no próprio Pycharm sem ser por código), criei classes no `usuarios_client.py` para facilitar na criação de testes e também para eu melhorar meus conhecimentos.
+Nisso criei pytest.fixture no ` conftest.py ` , o ` pytest.ini ` (também testei passando os parâmetros `-s -v` no próprio Pycharm sem ser por código), criei classes no `usuarios_client.py` para facilitar na criação de testes e também para eu melhorar meus conhecimentos.
 
 
 Testes realizados:
