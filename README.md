@@ -2,6 +2,8 @@
 Mini desafio da Semana 3 do Bootcamp AWS AI FDE Driven Quality Engineering da Compass UOL. Projeto de automação de testes de API com Python, Pytest e Requests para validação dos endpoints de Usuários da ServeRest. 
 
 Utilizei o Pycharm para a realização do desafio e tentei imitar o escopo do projeto passado em aula, copiando o nome dos diretórios e pastas.
+Nisso criei pytest.fixture no ` conftest.py ` , o ` pytest.ini ` (também testei passando os parâmetros `-s -v ` no próprio Pycharm sem ser por código), criei classes no `usuarios_client.py` para facilitar na criação de testes e também para eu melhorar meus conhecimentos.
+
 
 Testes realizados:
 ## Testes de Cadastro
@@ -55,35 +57,71 @@ def test_listar_usuarios(client):
     assert "usuarios" in response.json()
 
 ```
-Retorno:
+Exemplo de retorno esperado:
+```
+Qtd.: 10
+Qtd. Total: 10
+```
 
-### Teste 3
+## Busca por ID
+### Teste 6 - Busca de usuário específico
+```
+def test_busca_usuario(client, usuario_criado):
+    usuario_id, _ = usuario_criado
+    response = client.buscar_usuario(usuario_id)
+    assert response.status_code == 200
+    assert response.json()["_id"] == usuario_id
+```
+
+### Teste 7 - Busca de usuário que não existe
+```
+def test_busca_usuario_inexistente(client):
+    response = client.buscar_usuario("id_invalido")
+    assert response.status_code == 400
+
+```
+## Atualização de usuário
+### Teste 8 - Atualizar usuário
+```
+def test_atualiza_usuario(client, usuario_criado):
+    usuario_id, _ = usuario_criado
+    payload = gerar_usuario()
+    response = client.atualizar_usuario(usuario_id,payload)
+    assert response.status_code == 200
+```
+
+### Teste 9 - Atualizar usuário inexistente
+```
+def test_atualiza_usuario_inexistente(client):
+    id_inexistente = "id_que_nao_existe"
+    payload = gerar_usuario()
+    response = client.atualizar_usuario(id_inexistente, payload)
+    body = response.json()
+    assert response.status_code == 201
+    assert body["message"] == "Cadastro realizado com sucesso"
+    assert "_id" in body
+    assert isinstance(body["_id"], str)
+    client.excluir_usuario(body["_id"])
+```
+
+## Exclusão de usuário
+### Teste 10 - Excluir usuário
+```
+def test_excluir_usuario(client):
+    payload = gerar_usuario()
+    cadastro = client.cadastrar_usuario(payload)
+    usuario_id = cadastro.json()["_id"]
+    response = client.excluir_usuario(usuario_id)
+    assert response.status_code == 200
 
 ```
 
+### Teste 11 - Excluir usuário inexistente
 ```
-### Teste 3
-
-```
-
-```
-### Teste 3
-
-```
-
-```
-### Teste 3
-
-```
-
-```
-### Teste 3
-
-```
-
-```
-### Teste 3
-
-```
-
+def test_excluir_usuario_inexistente(client):
+    id_inexistente = "id_que_nao_existe"
+    response = client.excluir_usuario(id_inexistente)
+    assert response.status_code == 200
+    body = response.json()
+    assert "message" in body
 ```
