@@ -1,5 +1,19 @@
 '''
 Testes da base /produtos
+
+Testes feitos:
+1. Listar produtos
+
+2. Busca por ID (com validação de Schema)
+3. Busca de produto inexistente
+
+4. Cadastro com token
+5. Cadastro sem token
+
+6. Atualizar produto
+
+7. Excluir produto
+8. Excluir teste inexistente
 '''
 from src.helpers.data_factory import gerar_produto
 from src.helpers.schemas import validar_schema_produto
