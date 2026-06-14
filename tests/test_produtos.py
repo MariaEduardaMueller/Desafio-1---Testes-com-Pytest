@@ -2,6 +2,7 @@
 Testes da base /produtos
 '''
 from src.helpers.data_factory import gerar_produto
+from src.helpers.schemas import validar_schema_produto
 
 # Listar produtos
 def test_listar_produtos(produtos_client):
@@ -10,12 +11,15 @@ def test_listar_produtos(produtos_client):
     body = response.json()
     assert "produtos" in body
 
-# Busca por ID
+# Busca por ID (com validação de Schema)
 def test_busca_produto(produtos_client):
     response = produtos_client.listar_produtos()
     produto_id = response.json()["produtos"][0]["_id"]
     busca = produtos_client.buscar_produto(produto_id)
+    body = busca.json()
     assert busca.status_code == 200
+    assert body["_id"] == produto_id
+    validar_schema_produto(body)
 
 # Busca produto inexistente
 def test_busca_produto_inexistente(produtos_client):
