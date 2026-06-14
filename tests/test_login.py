@@ -2,10 +2,10 @@
 Testes na base /login
 
 Testes feitos:
-- Teste de Login válido (com validação de Schema)
-- Login com senha inválida
-- Login com email inexistente
-- Login com campos vázios
+1. Teste de Login válido (com validação de Schema)
+2. Login com senha inválida
+3. Login com email inexistente
+4. Login com campos vázios
 
 '''
 from src.helpers.schemas import validar_schema_login
