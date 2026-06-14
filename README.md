@@ -214,7 +214,6 @@ def test_excluir_usuario_inexistente(client):
 ```
 
 # Testes de Produtos
-## Exclusão de usuário
 ### Teste 1 - Listar produtos
 
 ```
