@@ -1,9 +1,16 @@
 '''
 Testes na base /login
+
+Testes feitos:
+- Teste de Login válido (com validação de Schema)
+- Login com senha inválida
+- Login com email inexistente
+- Login com campos vázios
+
 '''
 from src.helpers.schemas import validar_schema_login
 
-# Teste de Login Válido (com validação de Schema)
+# Teste de Login válido (com validação de Schema)
 def test_login(login_client, usuario_criado):
     _, payload = usuario_criado
     response = login_client.login(
@@ -17,7 +24,7 @@ def test_login(login_client, usuario_criado):
     validar_schema_login(body)
 
 
-# Senha inválida
+# Login com senha inválida
 def test_login_senha_incorreta(login_client, usuario_criado):
     _, payload = usuario_criado
     response = login_client.login(
@@ -27,7 +34,7 @@ def test_login_senha_incorreta(login_client, usuario_criado):
         })
     assert response.status_code == 401
 
-# Email Inexistente
+# Login com email inexistente
 def test_login_email_inexistente(login_client):
     response = login_client.login(
         {
