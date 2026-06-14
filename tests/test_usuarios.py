@@ -1,4 +1,6 @@
 '''
+Teste na base /usuarios
+
 Testes feitos:
 1. Validar cadastro de usuário
 2. Cadastro com email repetido
