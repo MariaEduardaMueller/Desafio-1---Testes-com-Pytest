@@ -1,11 +1,18 @@
 """
 Utilização do fixture para organização e teste.
-Achei bem prático para garantir que tudo o que for criado durante o teste seja excluído.
 """
+
 import pytest
-from src.api.usuarios_client import UsuariosClient
+from src.api.usuarios_client import UsuariosClient # Cliente
+from src.api.login_client import LoginClient # Login
 from src.helpers.data_factory import gerar_usuario
 
+#Para login
+@pytest.fixture
+def login_client():
+    return LoginClient()
+
+# Para cliente:
 @pytest.fixture
 def client():
     return UsuariosClient()
