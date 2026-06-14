@@ -17,6 +17,7 @@ Testes feitos:
 11. Excluir usuário inexistente
 '''
 from src.helpers.data_factory import gerar_usuario
+from src.helpers.schemas import validar_schema_usuario
 
 # Cadastro -------------------------------------------
 # Validar cadastro de usuário
@@ -61,12 +62,14 @@ def test_listar_usuarios(client):
 
 
 # Busca por ID -------------------------------------------
-# Busca de usuário específico
+# Busca de usuário específico (com validação de Schema)
 def test_busca_usuario(client, usuario_criado):
     usuario_id, _ = usuario_criado
     response = client.buscar_usuario(usuario_id)
+    body = response.json()
     assert response.status_code == 200
-    assert response.json()["_id"] == usuario_id
+    assert body["_id"] == usuario_id
+    validar_schema_usuario(body)
 
 # Busca de usuário que não existe
 def test_busca_usuario_inexistente(client):
