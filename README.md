@@ -37,6 +37,24 @@ Ou baixe o Python pelo site: https://www.python.org/downloads/
 
 <br> </br>
 
+### Taxa de cobertura
+<img width="645" height="485" alt="image" src="https://github.com/user-attachments/assets/dcd26115-46b0-4385-990b-4547e97f1314" />
+
+Path Coverage (input):
+
+(5 / 9) x 100 = 55,55% dos testes de path estão cobertos.
+
+<img width="800" height="601" alt="taxacaminhocoberturatotal" src="https://github.com/user-attachments/assets/3038037b-37e9-4607-a215-68ad07e456eb" />
+
+
+
+Operator Coverage (input):
+
+(11/16) x 100 = 68,75% de cobertura funcional da API.
+
+<img width="800" height="601" alt="coberturatotal" src="https://github.com/user-attachments/assets/f4e0c1d9-8476-4d3b-97cf-7494177cc584" />
+
+
 ### Testes realizados:
 
 # Testes de Login
