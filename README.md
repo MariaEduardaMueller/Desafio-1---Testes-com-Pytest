@@ -10,7 +10,7 @@ Desafio do Bootcamp AWS AI FDE Driven Quality Engineering da Compass UOL. Projet
   - [/login](#testes-de-login)
   - [/usuarios](#testes-de-usuários)
   - [/produtos](#testes-de-produtos)
-- [Report de Bugs, Erros e Inconsistências Encontradas](#report-de-bugs,-erros-e-inconsistências-encontradas)
+- [Report de Bugs, Erros e Inconsistências Encontradas](#report-de-bugs-erros-e-inconsistências-encontradas)
 
 ## Escopo do Projeto
 
