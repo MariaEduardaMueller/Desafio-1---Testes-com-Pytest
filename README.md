@@ -324,8 +324,7 @@ Além de registrar os defeitos encontrados na seção Issues do GitHub, optei po
 
 ### Bug #1 – Atualização de produto inexistente cria um novo produto
 
-Severidade: Alta
-Prioridade: Alta
+Severidade: Alta | Prioridade: Alta
 
 Descrição:
 
@@ -360,8 +359,7 @@ Esse comportamento pode gerar registros indevidos na base de dados e causar inco
 
 ### Bug #2 – Tratamento inconsistente para IDs inexistentes
 
-Severidade: Média
-Prioridade: Média
+Severidade: Média | Prioridade: Média
 
 Descrição:
 
@@ -399,8 +397,7 @@ Embora a validação de formato esteja correta, o comportamento para IDs inexist
 
 ### Observação #1 – Login com campos vazios retorna 400
 
-Severidade: Baixa
-Prioridade: Baixa
+Severidade: Baixa | Prioridade: Baixa
 
 Descrição:
 
