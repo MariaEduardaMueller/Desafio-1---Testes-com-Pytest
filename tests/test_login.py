@@ -10,7 +10,7 @@ Testes feitos:
 '''
 from src.helpers.schemas import validar_schema_login
 
-# Teste de Login válido (com validação de Schema)
+# Teste de login válido (com validação de Schema)
 def test_login(login_client, usuario_criado):
     _, payload = usuario_criado
     response = login_client.login(
@@ -22,7 +22,6 @@ def test_login(login_client, usuario_criado):
     body = response.json()
     assert response.status_code == 200
     validar_schema_login(body)
-
 
 # Login com senha inválida
 def test_login_senha_incorreta(login_client, usuario_criado):
@@ -38,8 +37,8 @@ def test_login_senha_incorreta(login_client, usuario_criado):
 def test_login_email_inexistente(login_client):
     response = login_client.login(
         {
-            "email": "naoexiste@email.com",
-            "password": "123456"
+            "email": "emaialeatorio@email.com",
+            "password": "1234567"
         })
     assert response.status_code == 401
 
@@ -50,5 +49,7 @@ def test_login_campos_vazios(login_client):
             "email": "",
             "password": ""
         })
-    assert response.status_code == 401
-
+    body = response.json()
+    assert response.status_code == 400
+    assert body["email"] == "email não pode ficar em branco"
+    assert body["password"] == "password não pode ficar em branco"
