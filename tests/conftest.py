@@ -5,7 +5,8 @@ Utilização do fixture para organização e teste.
 import pytest
 from src.api.usuarios_client import UsuariosClient # Cliente
 from src.api.login_client import LoginClient # Login
-from src.helpers.data_factory import gerar_usuario
+from src.api.produtos_client import ProdutosClient # Produtos
+from src.helpers.data_factory import gerar_usuario, gerar_produto
 
 #Para os testes de login
 @pytest.fixture
@@ -37,3 +38,12 @@ def token_admin(login_client, usuario_criado):
             "password": payload["password"]
         })
     return login.json()["authorization"]
+
+
+@pytest.fixture
+def produto_criado(produtos_client, token_admin):
+    payload = gerar_produto()
+    response = produtos_client.cadastrar_produto(payload, token_admin)
+    produto_id = response.json()["_id"]
+    yield produto_id, payload
+    produtos_client.excluir_produto(produto_id, token_admin)
