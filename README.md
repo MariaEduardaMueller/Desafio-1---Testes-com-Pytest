@@ -321,99 +321,161 @@ def test_excluir_produto_inexistente(produtos_client, token_admin):
 ```
 
 ## Report de Bugs, Erros e Inconsistências Encontradas
-Além de registrar os defeitos encontrados na seção Issues do GitHub, optei por documentá-los também neste relatório para facilitar a análise e rastreabilidade dos problemas identificados durante os testes.
 
-### Bug #1 – Atualização de produto inexistente cria um novo produto
+Além de registrar os defeitos encontrados na seção Issues do GitHub, optei por documentá-los também neste relatório para facilitar a análise e rastreabilidade dos problemas identificados durante os testes automatizados da API.
 
-Severidade: Alta | Prioridade: Alta
+### Bug #1 – Endpoint /produtos/{id} | Atualização de produto inexistente cria um novo produto
 
-Descrição:
+**Severidade:** Alta
+**Prioridade:** Alta
 
-Ao realizar uma requisição de atualização (PUT) para um produto com um ID válido, porém inexistente na base de dados, a API cria um novo produto em vez de retornar uma mensagem informando que o recurso não foi encontrado.
+**Endpoint:** `PUT /produtos/{id}`
 
-Passos para reproduzir:
+#### Descrição
+
+Ao realizar uma requisição de atualização (`PUT`) para um produto utilizando um ID válido, porém inexistente na base de dados, a API cria um novo produto em vez de retornar uma mensagem informando que o recurso não foi encontrado.
+
+#### Passos para reproduzir
+
 1. Gerar um payload válido de produto.
 2. Executar um `PUT /produtos/{id}` utilizando um ID com 16 caracteres alfanuméricos que não exista na base.
 3. Analisar a resposta retornada pela API.
-Resultado esperado
+
+#### Resultado esperado
+
 A API deveria retornar uma resposta indicando que o produto não foi encontrado, por exemplo:
-```
+
+```json
 {
   "message": "Produto não encontrado"
 }
 ```
+
 com status HTTP `404 Not Found` (ou outro status definido pela especificação da API).
 
-Resultado obtido:
+#### Resultado obtido
+
 A API retorna:
-```
+
+```json
 {
   "message": "Cadastro realizado com sucesso",
   "_id": "..."
 }
 ```
+
 com status HTTP `201 Created`, criando um novo produto.
 
-Impacto:
+#### Impacto
 
-Esse comportamento pode gerar registros indevidos na base de dados e causar inconsistências para consumidores da API que esperam apenas atualizar recursos já existentes.
+Esse comportamento pode gerar registros indevidos na base de dados, causar inconsistências nos dados da aplicação e induzir consumidores da API a acreditar que a atualização foi realizada com sucesso, quando na verdade um novo recurso foi criado.
 
-### Bug #2 – Tratamento inconsistente para IDs inexistentes
+---
 
-Severidade: Média | Prioridade: Média
+### Inconsistência #1 – Endpoint /produtos/{id} | Tratamento inconsistente para IDs inexistentes
 
-Descrição:
+**Severidade:** Média
+**Prioridade:** Média
+
+**Endpoints:** `PUT /produtos/{id}` e `DELETE /produtos/{id}`
+
+#### Descrição
 
 A API apresenta comportamentos distintos ao receber IDs inválidos e IDs válidos, porém inexistentes.
 
-### Cenário 1 – ID inválido
-Requisição:
+#### Cenário 1 – ID inválido
+
+**Requisição:**
 
 Utilizar um ID fora do padrão esperado.
 
-Resultado obtido:
-```
+**Resultado obtido:**
+
+```json
 {
   "id": "id deve ter exatamente 16 caracteres alfanuméricos"
 }
 ```
-Status HTTP: `400 Bad Request`
 
-### Cenário 2 – ID válido mas inexistente
-Requisição:
+**Status HTTP:** `400 Bad Request`
+
+#### Cenário 2 – ID válido, porém inexistente (PUT)
+
+**Requisição:**
 
 Utilizar um ID com 16 caracteres alfanuméricos que não exista na base.
 
-Resultado obtido:
-```
+**Resultado obtido:**
+
+```json
 {
   "message": "Cadastro realizado com sucesso"
 }
 ```
-Status HTTP: `201 Created`
 
-Impacto:
+**Status HTTP:** `201 Created`
 
-Embora a validação de formato esteja correta, o comportamento para IDs inexistentes não é consistente com a operação executada, dificultando o tratamento de erros pelos consumidores da API.
+#### Cenário 3 – ID válido, porém inexistente (DELETE)
 
-### Observação #1 – Login com campos vazios retorna 400
+**Requisição:**
 
-Severidade: Baixa | Prioridade: Baixa
+Utilizar um ID com 16 caracteres alfanuméricos que não exista na base.
 
-Descrição:
+**Resultado obtido:**
+
+```json
+{
+  "message": "Nenhum registro excluído"
+}
+```
+
+**Status HTTP:** `200 OK`
+
+#### Impacto
+
+Embora a validação de formato esteja correta, o tratamento de recursos inexistentes não segue um comportamento uniforme entre os endpoints testados, dificultando a implementação de tratamentos de erro por parte dos consumidores da API.
+
+---
+
+### Observação #1 – Endpoint /login | Login com campos vazios retorna 400
+
+**Severidade:** Informativa
+**Prioridade:** Baixa
+
+**Endpoint:** `POST /login`
+
+#### Descrição
 
 Ao realizar login enviando os campos de e-mail e senha vazios, a API retorna:
-```
+
+```json
 {
   "email": "email não pode ficar em branco",
   "password": "password não pode ficar em branco"
 }
 ```
-Status HTTP: `400 Bad Request`
 
-Observação:
+**Status HTTP:** `400 Bad Request`
 
-Esse comportamento não caracteriza necessariamente um defeito, pois a API está validando corretamente os campos obrigatórios antes de executar a autenticação. No entanto, registrei ele por representar um comportamento diferente do observado em cenários de credenciais inválidas, nos quais a API retorna status `401 Unauthorized`.
+#### Observação
 
-Resultado esperado:
+Esse comportamento não caracteriza necessariamente um defeito, pois a API está validando corretamente os campos obrigatórios antes de executar a autenticação.
+
+No entanto, foi registrado por representar um comportamento diferente do observado em cenários de credenciais inválidas, nos quais a API retorna status `401 Unauthorized`.
+
+#### Resultado esperado
+
 Comportamento sujeito à regra de negócio definida pela equipe responsável pela API.
+
+---
+
+## Resumo Executivo
+
+Durante a execução dos testes automatizados foram identificados:
+
+* **1 bug de alta severidade** relacionado ao endpoint de atualização de produtos.
+* **1 inconsistência funcional de média severidade** relacionada ao tratamento de recursos inexistentes.
+* **1 observação de comportamento** referente à validação de campos obrigatórios no processo de autenticação.
+
+Os resultados indicam que a API possui boa estabilidade nos fluxos principais testados, porém apresenta oportunidades de melhoria relacionadas à consistência das respostas e ao tratamento de operações realizadas sobre recursos inexistentes.
+
