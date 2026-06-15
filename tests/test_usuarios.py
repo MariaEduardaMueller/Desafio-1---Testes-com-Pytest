@@ -9,7 +9,7 @@ Testes feitos:
 
 5. Contagem de usuários
 
-6. Busca de usuário específico por ID
+6. Busca de usuário específico por ID (com validação de Schema)
 7. Busca de usuário que não existe por ID
 
 8. Atualizar usuário
