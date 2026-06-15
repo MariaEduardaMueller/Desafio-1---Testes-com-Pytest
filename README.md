@@ -1,6 +1,7 @@
 # Desafio Final - Testes com Pytest
-Desafio do Bootcamp AWS AI FDE Driven Quality Engineering da Compass UOL. Projeto de automação de testes de API com Python, Pytest e Requests para validação dos endpoints de Usuários, Login e Produtos da ServeRest (Base URL: https://compassuol.serverest.dev/)
-[incluir plano de testes]
+Desafio do Bootcamp AWS AI FDE Driven Quality Engineering da Compass UOL. Projeto de automação de testes de API com Python, Pytest e Requests para validação dos endpoints de Usuários, Login e Produtos da ServeRest (Base URL: https://compassuol.serverest.dev/). 
+
+Para o desafio final também foi criado o [Plano de Testes](PLANO-DE-TESTES.md).
 
 ## Sumário
 - [Escopo do Projeto](#escopo-do-projeto)
