@@ -39,6 +39,7 @@ Ou baixe o Python pelo site: https://www.python.org/downloads/
 
 ### Taxa de cobertura
 Foi utilizado como base o artigo: https://medium.com/revista-dtar/como-verificar-a-cobertura-de-testes-da-api-rest-9e2f745564b e a atual documentação da ServeRest para fazer a contagem de endpoints e métodos (GET, POST, PUT, DELETE) da API. 
+
 <img width="645" height="485" alt="image" src="https://github.com/user-attachments/assets/dcd26115-46b0-4385-990b-4547e97f1314" />
 
 ## Path Coverage (input):
