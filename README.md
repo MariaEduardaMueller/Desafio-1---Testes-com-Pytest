@@ -10,7 +10,7 @@ Desafio do Bootcamp AWS AI FDE Driven Quality Engineering da Compass UOL. Projet
   - [/login](#testes-de-login)
   - [/usuarios](#testes-de-usuários)
   - [/produtos](#testes-de-produtos)
-- [Report de Bugs, Erros e Inconsistências Encontradas](#bugs-encontrados)
+- [Report de Bugs, Erros e Inconsistências Encontradas](#report-de-bugs,-erros-e-inconsistências-encontradas)
 
 ## Escopo do Projeto
 
@@ -300,3 +300,104 @@ def test_excluir_produto_inexistente(produtos_client, token_admin):
     assert response.status_code == 400
     assert "id" in body
 ```
+
+## Report de Bugs, Erros e Inconsistências Encontradas
+Além de registrar os defeitos encontrados na seção Issues do GitHub, optei por documentá-los também neste relatório para facilitar a análise e rastreabilidade dos problemas identificados durante os testes.
+
+### Bug #1 – Atualização de produto inexistente cria um novo produto
+
+Severidade: Alta
+Prioridade: Alta
+
+Descrição:
+
+Ao realizar uma requisição de atualização (PUT) para um produto com um ID válido, porém inexistente na base de dados, a API cria um novo produto em vez de retornar uma mensagem informando que o recurso não foi encontrado.
+
+Passos para reproduzir:
+1. Gerar um payload válido de produto.
+2. Executar um `PUT /produtos/{id}` utilizando um ID com 16 caracteres alfanuméricos que não exista na base.
+3. Analisar a resposta retornada pela API.
+Resultado esperado
+A API deveria retornar uma resposta indicando que o produto não foi encontrado, por exemplo:
+```
+{
+  "message": "Produto não encontrado"
+}
+```
+com status HTTP `404 Not Found` (ou outro status definido pela especificação da API).
+
+Resultado obtido:
+A API retorna:
+```
+{
+  "message": "Cadastro realizado com sucesso",
+  "_id": "..."
+}
+```
+com status HTTP `201 Created`, criando um novo produto.
+
+Impacto:
+
+Esse comportamento pode gerar registros indevidos na base de dados e causar inconsistências para consumidores da API que esperam apenas atualizar recursos já existentes.
+
+### Bug #2 – Tratamento inconsistente para IDs inexistentes
+
+Severidade: Média
+Prioridade: Média
+
+Descrição:
+
+A API apresenta comportamentos distintos ao receber IDs inválidos e IDs válidos, porém inexistentes.
+
+### Cenário 1 – ID inválido
+Requisição:
+
+Utilizar um ID fora do padrão esperado.
+
+Resultado obtido:
+```
+{
+  "id": "id deve ter exatamente 16 caracteres alfanuméricos"
+}
+```
+Status HTTP: `400 Bad Request`
+
+### Cenário 2 – ID válido mas inexistente
+Requisição:
+
+Utilizar um ID com 16 caracteres alfanuméricos que não exista na base.
+
+Resultado obtido:
+```
+{
+  "message": "Cadastro realizado com sucesso"
+}
+```
+Status HTTP: `201 Created`
+
+Impacto:
+
+Embora a validação de formato esteja correta, o comportamento para IDs inexistentes não é consistente com a operação executada, dificultando o tratamento de erros pelos consumidores da API.
+
+### Observação #1 – Login com campos vazios retorna 400
+
+Severidade: Baixa
+Prioridade: Baixa
+
+Descrição:
+
+Ao realizar login enviando os campos de e-mail e senha vazios, a API retorna:
+```
+{
+  "email": "email não pode ficar em branco",
+  "password": "password não pode ficar em branco"
+}
+```
+Status HTTP: `400 Bad Request`
+
+Observação:
+
+Esse comportamento não caracteriza necessariamente um defeito, pois a API está validando corretamente os campos obrigatórios antes de executar a autenticação. No entanto, registrei ele por representar um comportamento diferente do observado em cenários de credenciais inválidas, nos quais a API retorna status `401 Unauthorized`.
+
+Resultado esperado:
+Comportamento sujeito à regra de negócio definida pela equipe responsável pela API.
