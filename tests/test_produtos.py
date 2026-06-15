@@ -15,7 +15,8 @@ Testes feitos:
 8. Atualizar produto inexistente
 
 9. Excluir produto
-10. Excluir produto inexistente
+10. Excluir produto com ID inválido
+11. Excluir produto inexistente
 '''
 
 from src.helpers.data_factory import gerar_produto
@@ -89,9 +90,15 @@ def test_excluir_produto(produtos_client, token_admin):
     response = produtos_client.excluir_produto(produto_id, token_admin)
     assert response.status_code == 200
 
-# Excluir produto inexistente
-def test_excluir_produto_inexistente(produtos_client, token_admin):
+# Excluir produto com ID inválido
+def test_excluir_produto_id_invalido(produtos_client, token_admin):
     response = produtos_client.excluir_produto("123456", token_admin)
     body = response.json()
     assert response.status_code == 400
     assert "id" in body
+
+# Excluir produto inexistente
+def test_excluir_produto_inexistente(produtos_client, token_admin):
+        response = produtos_client.excluir_produto("1234567111711111", token_admin)
+        print(response.status_code)
+        print(response.json())
