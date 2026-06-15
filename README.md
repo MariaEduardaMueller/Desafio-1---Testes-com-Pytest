@@ -311,13 +311,21 @@ def test_excluir_produto(produtos_client, token_admin):
     response = produtos_client.excluir_produto(produto_id, token_admin)
     assert response.status_code == 200
 ```
-### Teste 10 - Excluir produto inexistente
+### Teste 11 - Excluir produto com ID inválido
 ```
-def test_excluir_produto_inexistente(produtos_client, token_admin):
+def test_excluir_produto_id_invalido(produtos_client, token_admin):
     response = produtos_client.excluir_produto("123456", token_admin)
     body = response.json()
     assert response.status_code == 400
     assert "id" in body
+```
+
+### Teste 11 - Excluir produto inexistente
+```
+def test_excluir_produto_inexistente(produtos_client, token_admin):
+        response = produtos_client.excluir_produto("1234567111711111", token_admin)
+        print(response.status_code)
+        print(response.json())
 ```
 
 ## Report de Bugs, Erros e Inconsistências Encontradas
