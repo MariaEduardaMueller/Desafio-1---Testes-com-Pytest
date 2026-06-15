@@ -20,6 +20,7 @@ def client():
 @pytest.fixture
 def novo_usuario():
     return gerar_usuario()
+
 @pytest.fixture
 def usuario_criado(client):
     payload = gerar_usuario()
@@ -28,7 +29,11 @@ def usuario_criado(client):
     yield usuario_id, payload
     client.excluir_usuario(usuario_id)
 
-# Para os testes de produto
+# Para os testes de produto:
+@pytest.fixture
+def produtos_client():
+    return ProdutosClient()
+    
 @pytest.fixture
 def token_admin(login_client, usuario_criado):
     _, payload = usuario_criado
@@ -38,7 +43,6 @@ def token_admin(login_client, usuario_criado):
             "password": payload["password"]
         })
     return login.json()["authorization"]
-
 
 @pytest.fixture
 def produto_criado(produtos_client, token_admin):
