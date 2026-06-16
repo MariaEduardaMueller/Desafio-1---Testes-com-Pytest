@@ -80,38 +80,37 @@ Validar o comportamento funcional dos endpoints da API ServeRest solicitados no 
 
 | ID     | Cenário                                  |
 | ------ | ---------------------------------------- |
-| USR-01 | Listar usuários cadastrados              |
-| USR-02 | Validar quantidade retornada na listagem |
+| USR-01 | Listar contagem usuários cadastrados     |
 
 ### POST /usuarios
 
 | ID     | Cenário                                      |
 | ------ | -------------------------------------------- |
-| USR-03 | Cadastrar usuário válido                     |
-| USR-04 | Tentar cadastrar usuário com email duplicado |
-| USR-05 | Tentar cadastrar usuário sem email           |
-| USR-06 | Tentar cadastrar usuário sem nome            |
+| USR-02 | Cadastrar usuário válido                     |
+| USR-03 | Tentar cadastrar usuário com email duplicado |
+| USR-04 | Tentar cadastrar usuário sem email           |
+| USR-05 | Tentar cadastrar usuário sem nome            |
 
 ### GET /usuarios/{id}
 
 | ID     | Cenário                         |
 | ------ | ------------------------------- |
-| USR-07 | Buscar usuário existente por ID |
-| USR-08 | Buscar usuário inexistente      |
+| USR-06 | Buscar usuário existente por ID |
+| USR-07 | Buscar usuário inexistente      |
 
 ### PUT /usuarios/{id}
 
 | ID     | Cenário                       |
 | ------ | ----------------------------- |
-| USR-09 | Atualizar usuário existente   |
-| USR-10 | Atualizar usuário inexistente |
+| USR-08 | Atualizar usuário existente   |
+| USR-09 | Atualizar usuário inexistente |
 
 ### DELETE /usuarios/{id}
 
 | ID     | Cenário                     |
 | ------ | --------------------------- |
-| USR-11 | Excluir usuário existente   |
-| USR-12 | Excluir usuário inexistente |
+| USR-10 | Excluir usuário existente   |
+| USR-11 | Excluir usuário inexistente |
 
 ---
 
@@ -148,6 +147,7 @@ Validar o comportamento funcional dos endpoints da API ServeRest solicitados no 
 | ID     | Cenário                     |
 | ------ | --------------------------- |
 | PRD-09 | Excluir produto existente   |
+| PRD-10 | Excluir produto ID Inválido |
 | PRD-10 | Excluir produto inexistente |
 
 ---
