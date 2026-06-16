@@ -1,7 +1,7 @@
 # Desafio Final - Testes com Pytest
 Desafio do Bootcamp AWS AI FDE Driven Quality Engineering da Compass UOL. Projeto de automação de testes de API com Python, Pytest e Requests para validação dos endpoints de Usuários, Login e Produtos da ServeRest (Base URL: https://compassuol.serverest.dev/). 
 
-Para o desafio final também foi criado o [Plano de Testes](PLANO-DE-TESTES.md).
+Para o desafio final também foi criado o [Plano de Testes](PLANO-DE-TESTES.md), foi configurado o [Github Actions](https://github.com/MariaEduardaMueller/Desafio-1---Testes-com-Pytest/actions) para rodar os testes automaticamente e o report de bugs pela aba de [Issues](https://github.com/MariaEduardaMueller/Desafio-1---Testes-com-Pytest/issues) do Github.
 
 ## Sumário
 - [Escopo do Projeto](#escopo-do-projeto)
@@ -321,7 +321,7 @@ def test_excluir_produto_id_invalido(produtos_client, token_admin):
     assert "id" in body
 ```
 
-### Teste 11 - Excluir produto inexistente
+### Teste 12 - Excluir produto inexistente
 ```
 def test_excluir_produto_inexistente(produtos_client, token_admin):
         response = produtos_client.excluir_produto("1234567111711111", token_admin)
